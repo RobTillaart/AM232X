@@ -10,15 +10,13 @@ the AM232X has a fixed address 0x5C.
 
 ## Operation
 
-In setip() you have to call the **AM232X.begin()** to initialize 
-the Wire library and do an initial **read()** to fill the variables
-**AM232X.temperature** and **AM232X.humidity**. 
+In setup() you have to call the **begin()** to initialize 
+the Wire library and do an initial **read()** to fill the 
+variables temperature and humidity. 
+To access these values one must use **getTemperature()** and **getHhumidity()**. 
 
 
 ## Planned changes
-The two variables will be replaced by two functions in an upcoming
-breaking version of the lib. This to prevent writing to the two
-variables.
 
 Fix several TODO's in the code.
 

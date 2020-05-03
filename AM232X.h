@@ -3,7 +3,7 @@
 //    FILE: AM232X.h
 //  AUTHOR: Rob Tillaart
 // PURPOSE: AM232X library for Arduino
-// VERSION: 0.1.5
+// VERSION: 0.2.0
 // HISTORY: See AM232X.cpp
 //     URL: https://github.com/RobTillaart/AM232X
 //
@@ -11,7 +11,7 @@
 #include "Wire.h"
 #include "Arduino.h"
 
-#define AM232X_LIB_VERSION          "0.1.5"
+#define AM232X_LIB_VERSION          "0.2.0"
 
 #define AM232X_OK                    0
 #define AM232X_ERROR_UNKNOWN        -10
@@ -54,19 +54,15 @@ public:
   int setUserRegisterA(int value);
   int setUserRegisterB(int value);
 
-  float humidity;
-  float temperature;
-  
-  //
-  // prep for 0.2.0
-  // inline float temperature() { return temperature; };
-  // inline float humidity() { return humidity; };
-  //
+  inline float getHumidity() { return humidity; };
+  inline float getTemperature() { return temperature; };
 
 private:
   
   uint8_t bits[8];
-
+  float humidity;
+  float temperature;
+  
   int _readRegister(uint8_t reg, uint8_t cnt);
   int _writeRegister(uint8_t reg, uint8_t cnt, int16_t value);
   uint16_t crc16(uint8_t *ptr, uint8_t len);

@@ -1,18 +1,19 @@
 //
 //    FILE: AM232X.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.5
+// VERSION: 0.2.0
 // PURPOSE: AM232X library for AM2320 for Arduino.
 //
 // HISTORY:
-//   0.1.0: 2017-12-11 initial version
-//   0.1.1: 2017-12-12 added CRC checking
-//   0.1.2: 2017-12-12 get and set functions.
-//   0.1.3: 2017-12-19 added ESP8266 - issue #86
+//   0.1.0  2017-12-11 initial version
+//   0.1.1  2017-12-12 added CRC checking
+//   0.1.2  2017-12-12 get and set functions.
+//   0.1.3  2017-12-19 added ESP8266 - issue #86
 //                     tested by Viktor Balint
-//   0.1.4: 2018-10-24 fixed temperature formula - #114
+//   0.1.4  2018-10-24 fixed temperature formula - #114
 //                     thanks to 9a4gl
-//   0.1.5: 2020-03-25 refactor, add read() to begin()
+//   0.1.5  2020-03-25 refactor, add read() to begin()
+//   0.2.0  2020-05-03 made temperature + humidity private, add wrapper functions.
 //
 
 #include <AM232X.h>
@@ -44,8 +45,8 @@ int AM232X::read()
   if (rv < 0) return rv;
 
   // CONVERT AND STORE
-  humidity = (bits[2]*256 + bits[3]) * 0.1;
-  temperature = (bits[4] & 0x7F)*256 + bits[5] * 0.1;
+  humidity = (bits[2] * 256 + bits[3]) * 0.1;
+  temperature = (bits[4] & 0x7F) * 256 + bits[5] * 0.1;
 
   if (bits[4] & 0x80)
   {

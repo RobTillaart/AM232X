@@ -46,7 +46,7 @@ int AM232X::read()
 
   // CONVERT AND STORE
   humidity = (bits[2] * 256 + bits[3]) * 0.1;
-  temperature = (bits[4] & 0x7F) * 256 + bits[5] * 0.1;
+  temperature = ((bits[4] & 0x7F) * 256 + bits[5]) * 0.1;
 
   if (bits[4] & 0x80)
   {

@@ -1,7 +1,7 @@
 //
 //    FILE: AM232X.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.2.2
+// VERSION: 0.2.3
 // PURPOSE: AM232X library for AM2320 for Arduino.
 //
 // HISTORY:
@@ -16,6 +16,7 @@
 //   0.2.0  2020-05-03 made temperature + humidity private, add wrapper functions.
 //   0.2.1  2020-05-06 fix temperature function (thanks Chade)
 //   0.2.2  2020-05-12 added ESP32 support
+//   0.2.3  2020-05-27 update library.json
 //
 
 #include <AM232X.h>

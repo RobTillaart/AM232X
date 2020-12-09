@@ -40,7 +40,7 @@ unittest(test_demo)
 
   AM.begin();
 
-  assertEqual(0, AM.read());
+  assertEqual(-10, AM.read());
 }
 
 unittest_main()

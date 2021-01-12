@@ -39,7 +39,7 @@ unittest(test_demo)
   Wire.begin();
 
   assertTrue(AM.begin());
-  assertTrue(AM.isCOnnected());   // TODO - GODMODE
+  assertTrue(AM.isConnected());   // TODO - GODMODE
 
   assertEqual(-10, AM.read());
 }

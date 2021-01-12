@@ -38,7 +38,8 @@ unittest(test_demo)
   AM232X AM;
   Wire.begin();
 
-  AM.begin();
+  assertTrue(AM.begin());
+  assertTrue(AM.isConnected());   // TODO - GODMODE
 
   assertEqual(-10, AM.read());
 }

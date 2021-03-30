@@ -41,7 +41,7 @@ Typical parameters
 - **AM232X(TwoWire \*wire = &Wire)** constructor, optionally set Wire0..WireN.
 - **bool begin(uint8_t sda, uint8_t scl)** for ESP32 alike devices, returns true if device is connected
 - **bool begin()** for AVR alike devices, returns true if device is connected
-- **bool isConnected()** returns true if device-address is found on I2C bus.
+- **bool isConnected(uint16_t timeout = 3000)** returns true if device-address is found on I2C bus. As the device can be in sleep modus it will retry for the defined timeout (in micros) with a minimum of 1 try. minimum = 800 us and maximum = 3000 us according to datasheet.
 
 
 ### Base calls
@@ -64,7 +64,7 @@ check datasheet for details.
 - **int setStatus(uint8_t value)**
 - **int setUserRegisterA(int value)**
 - **int setUserRegisterB(int value)**
-
+- **bool wakeUp()** function that will try for 3 milliseconds to wake up the sensor.
 
 ## Operation
 

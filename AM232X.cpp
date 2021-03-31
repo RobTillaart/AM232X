@@ -20,7 +20,7 @@
 //   0.2.4  2020-12-09  arduino-ci
 //   0.3.0  2021-01-12  isConnected() + Wire0..Wire5 support
 //   0.3.1  2021-01-28  fix TODO's in code
-//   0.3.2  2021-03-30  issue #13 - add timeout to isConnected to wakeup sleeping sensor. 
+//   0.3.2  2021-03-30  #13 - timeout to isConnected() + wakeUp() + readme.md
 
 
 #include "AM232X.h"

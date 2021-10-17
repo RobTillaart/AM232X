@@ -259,7 +259,7 @@ int AM232X::_getData(uint8_t length)
       case 0x80: return AM232X_ERROR_FUNCTION;
       case 0x81: return AM232X_ERROR_ADDRESS;
       case 0x82: return AM232X_ERROR_REGISTER;
-      case 0x83: return AM232X_ERROR_CRC_1;  // prev write had a wrong CRC
+      case 0x83: return AM232X_ERROR_CRC_1;  // previous write had a wrong CRC
       case 0x84: return AM232X_ERROR_WRITE_DISABLED;
       default:   return AM232X_ERROR_UNKNOWN;
     }

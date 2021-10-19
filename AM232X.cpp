@@ -1,7 +1,7 @@
 //
 //    FILE: AM232X.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.3.2
+// VERSION: 0.3.3
 // PURPOSE: AM232X library for AM2320 for Arduino.
 //
 // HISTORY:
@@ -21,6 +21,7 @@
 //   0.3.0  2021-01-12  isConnected() + Wire0..Wire5 support
 //   0.3.1  2021-01-28  fix TODO's in code
 //   0.3.2  2021-03-30  #13 - timeout to isConnected() + wakeUp() + readme.md
+//   0.3.3  2021-10-19  update build-CI
 
 
 #include "AM232X.h"

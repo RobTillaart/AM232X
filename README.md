@@ -42,6 +42,7 @@ Typical parameters
 
 ## Interface
 
+
 ### Constructor
 
 - **AM232X(TwoWire \*wire = &Wire)** constructor, optionally set Wire0..WireN.
@@ -106,6 +107,8 @@ Which method fit your application depends on your requirements and constraints.
 
 ## Future
 
+- update documentation
+- test more
 
 
 ## Warning

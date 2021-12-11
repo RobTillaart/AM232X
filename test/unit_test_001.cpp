@@ -37,7 +37,7 @@ unittest_teardown()
 
 unittest(test_constants)
 {
-  fprintf(stderr, "AM232X_LIB_VERSION: %s\n" (char *) AM232X_LIB_VERSION);
+  fprintf(stderr, "AM232X_LIB_VERSION: %s\n", (char *) AM232X_LIB_VERSION);
 
   assertEqual(  0, AM232X_OK                  );
   assertEqual(-10, AM232X_ERROR_UNKNOWN       );

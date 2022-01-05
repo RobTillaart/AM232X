@@ -23,7 +23,7 @@
 //   0.3.2  2021-03-30  #13 - timeout to isConnected() + wakeUp() + readme.md
 //   0.3.3  2021-10-19  update build-CI
 //   0.3.4  2021-12-11  add unit test, update library.json, license
-//   0.4.0  2022-01-06  add offset(), lastRead and readDelay()
+//   0.4.0  2022-01-06  add offset(), lastRead() and readDelay()
 
 
 #include "AM232X.h"

@@ -1,7 +1,7 @@
 //
 //    FILE: AM232X.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.3.4
+// VERSION: 0.4.0
 // PURPOSE: AM232X library for AM2320 for Arduino.
 //
 // HISTORY:
@@ -17,12 +17,13 @@
 //   0.2.1  2020-05-06  fix temperature function (thanks Chade)
 //   0.2.2  2020-05-12  added ESP32 support
 //   0.2.3  2020-05-27  update library.json
-//   0.2.4  2020-12-09  arduino-ci
+//   0.2.4  2020-12-09  Arduino-CI
 //   0.3.0  2021-01-12  isConnected() + Wire0..Wire5 support
 //   0.3.1  2021-01-28  fix TODO's in code
 //   0.3.2  2021-03-30  #13 - timeout to isConnected() + wakeUp() + readme.md
 //   0.3.3  2021-10-19  update build-CI
 //   0.3.4  2021-12-11  add unit test, update library.json, license
+//   0.4.0  2022-01-06  add offset(), lastRead and readDelay()
 
 
 #include "AM232X.h"
@@ -79,6 +80,11 @@ bool AM232X::isConnected(uint16_t timeout)
 
 int AM232X::read()
 {
+  if (_readDelay == 0) _readDelay = 2000;  // reset
+  if (millis() - _lastRead < _readDelay)
+  {
+    return AM232X_READ_TOO_FAST;
+  }
   // READ HUMIDITY AND TEMPERATURE REGISTERS
   int rv = _readRegister(0x00, 4);
   if (rv < 0) return rv;

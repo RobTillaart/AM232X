@@ -105,14 +105,19 @@ have the "boot time" constraint mentioned above.
 Which method fit your application depends on your requirements and constraints.
 
 
-## Future
-
-- update documentation
-- test more
-
-
 ## Warning
 
 The library has not been tested extensively yet so use at own risk.
 
 See also LICENSE
+
+
+## Future
+
+- update documentation
+- test more
+- add specific named classes for 
+  - AM2320, AM2321, AM2322 ?
+  - AM2315 (add type field)
+- add offset
+  

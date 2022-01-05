@@ -24,7 +24,6 @@
 #define AM232X_LIB_VERSION              (F("0.4.0"))
 
 
-
 #define AM232X_OK                        0
 #define AM232X_ERROR_UNKNOWN            -10
 #define AM232X_ERROR_CONNECT            -11
@@ -37,7 +36,6 @@
 #define AM232X_ERROR_WRITE_COUNT        -18
 #define AM232X_MISSING_BYTES            -19
 #define AM232X_READ_TOO_FAST            -20
-
 
 
 /*

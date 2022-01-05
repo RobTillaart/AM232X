@@ -60,6 +60,23 @@ minimum = 800 us and maximum = 3000 us according to datasheet.
 - **float getTemperature()** returns the last read temperature.
 
 
+### Offset
+
+- **void setHumOffset(float offset)** set an offset to calibrate (1st order) the sensor.
+- **float getHumOffset()** return current offset, default 0.
+- **void setTempOffset(float offset)** set an offset to calibrate (1st order) the sensor
+- **float getTempOffset()** return current offset, default 0.
+
+
+### Control
+
+Functions to adjust the communication with the sensor.
+
+- **void setReadDelay(uint16_t rd = 0)** To tune the time it waits before actual read. Default = 2000 ms.
+set readDelay to 0 will reset to 2000 ms AFTER a call to **read()**.
+- **uint16_t getReadDelay()** returns the above setting.
+
+
 ### Misc
 
 check datasheet for details.

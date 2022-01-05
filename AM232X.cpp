@@ -103,13 +103,15 @@ int AM232X::read()
 
 float AM232X::getHumidity()
 {
-  return _humidity + _humOffset; 
+  if (_humOffset == 0.0) return _humidity;
+  return _humidity + _humOffset;
 };
 
 
 float AM232X::getTemperature()
 {
-  return _temperature + _tempOffset; 
+  if (_tempOffset == 0.0) return _temperature;
+  return _temperature + _tempOffset;
 };
 
 

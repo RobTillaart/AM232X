@@ -90,15 +90,27 @@ int AM232X::read()
   if (rv < 0) return rv;
 
   // CONVERT AND STORE
-  humidity = (bits[2] * 256 + bits[3]) * 0.1;
-  temperature = ((bits[4] & 0x7F) * 256 + bits[5]) * 0.1;
+  _humidity = (bits[2] * 256 + bits[3]) * 0.1;
+  _temperature = ((bits[4] & 0x7F) * 256 + bits[5]) * 0.1;
 
   if (bits[4] & 0x80)
   {
-    temperature = -temperature;
+    _temperature = -_temperature;
   }
   return AM232X_OK;
 }
+
+
+float AM232X::getHumidity()
+{
+  return _humidity + _humOffset; 
+};
+
+
+float AM232X::getTemperature()
+{
+  return _temperature + _tempOffset; 
+};
 
 
 int AM232X::getModel()

@@ -80,8 +80,8 @@ public:
     int      setUserRegisterA(int value);
     int      setUserRegisterB(int value);
 
-    inline float getHumidity()    { return humidity + _humOffset; };
-    inline float getTemperature() { return temperature + _tempOffset; };
+    float    getHumidity();
+    float    getTemperature();
 
     // adding offsets works well in normal range
     // might introduce under- or overflow at the ends of the sensor range
@@ -94,8 +94,8 @@ public:
 
 private:
     uint8_t  bits[8];
-    float    humidity;
-    float    temperature;
+    float    _humidity;
+    float    _temperature;
     float    _humOffset     = 0.0;
     float    _tempOffset    = 0.0;
     uint32_t _lastRead      = 0;

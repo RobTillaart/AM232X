@@ -34,6 +34,8 @@ void setup()
     Serial.println("Sensor not found");
     while (1);
   }
+  AM2322.wakeUp();
+  delay(2000);
 
   Serial.println("Type,\tStatus,\tHumidity (%),\tTemperature (C)");
 }

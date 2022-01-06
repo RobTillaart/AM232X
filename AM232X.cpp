@@ -24,6 +24,7 @@
 //   0.3.3  2021-10-19  update build-CI
 //   0.3.4  2021-12-11  add unit test, update library.json, license
 //   0.4.0  2022-01-06  add offset(), lastRead() and readDelay()
+//                      refactor examples, update readme.md
 
 
 #include "AM232X.h"

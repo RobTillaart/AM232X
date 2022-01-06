@@ -30,13 +30,17 @@ Typical parameters
 
 
 ```
-//  Bottom view 
+//  AM232X PIN layout             AM2315 COLOR
+//  ============================================
+//   bottom view  DESCRIPTION     COLOR
 //       +---+
-//  VDD  |o  |
-//  SDA  |o  |
-//  GND  |o  |
-//  SCL  |o  |
+//       |o  |       VDD          RED
+//       |o  |       SDA          YELLOW
+//       |o  |       GND          BLACK
+//       |o  |       SCL          GREY
 //       +---+
+//
+// do not forget pull up resistors between SDA, SCL and VDD.
 ```
 
 
@@ -56,6 +60,7 @@ minimum = 800 us and maximum = 3000 us according to datasheet.
 ### Base calls
 
 - **int read()** fetches the values from the sensor.
+- **uint32_t lastRead()** returns milliseconds since start of last read. 
 - **float getHumidity()** returns the last read humidity.
 - **float getTemperature()** returns the last read temperature.
 
@@ -70,11 +75,12 @@ minimum = 800 us and maximum = 3000 us according to datasheet.
 
 ### Control
 
-Functions to adjust the communication with the sensor.
+Functions to adjust the interval time the sensor may be called again.
+Default = 2000 ms (from datasheet).
 
-- **void setReadDelay(uint16_t rd = 0)** To tune the time it waits before actual read. Default = 2000 ms.
-set readDelay to 0 will reset to 2000 ms AFTER a call to **read()**.
-- **uint16_t getReadDelay()** returns the above setting.
+- **void setReadDelay(uint16_t rd = 0)** Tunes the time it waits before actual read can be done.
+Set readDelay to 0 will reset it to 2000 ms after a call to **read()**.
+- **uint16_t getReadDelay()** returns the above setting. Note that a value of zero (reset) will return 0 before the call and 2000 after the call to **read()**.
 
 
 ### Misc
@@ -117,7 +123,7 @@ the sensor takes to boot and to be ready for the first measurement.
 pin of the sensors. This way one can enable / disable communication 
 per sensor. This will still need an IO pin per sensor but does not 
 have the "boot time" constraint mentioned above.
-3. Use a TCA9548A I2C Multiplexer, or similar. 
+3. Use a TCA9548A I2C Multiplexer, or similar. https://github.com/RobTillaart/TCA9548
 
 Which method fit your application depends on your requirements and constraints.
 
@@ -133,8 +139,7 @@ See also LICENSE
 
 - update documentation
 - test more
-- add specific named classes for 
+- add specific named classes ?
   - AM2320, AM2321, AM2322 ?
-  - AM2315 (add type field)
-- add offset
+  - AM2315 - add type field ?
   

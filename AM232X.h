@@ -7,14 +7,17 @@
 // HISTORY: See AM232X.cpp
 //     URL: https://github.com/RobTillaart/AM232X
 //
-
-//  Bottom view
+//  AM232X PIN layout             AM2315 COLOR
+//  ============================================
+//   bottom view  DESCRIPTION     COLOR
 //       +---+
-//  VDD  |o  |
-//  SDA  |o  |
-//  GND  |o  |
-//  SCL  |o  |
+//       |o  |       VDD          RED
+//       |o  |       SDA          YELLOW
+//       |o  |       GND          BLACK
+//       |o  |       SCL          GREY
 //       +---+
+//
+// do not forget pull up resistors between SDA, SCL and VDD.
 
 
 #include "Arduino.h"
@@ -57,7 +60,7 @@ public:
 #endif
     bool     begin();
     // datasheet 8.2 - wake up is min 800 us max 3000 us
-    bool     isConnected(uint16_t timeout = 3000);  
+    bool     isConnected(uint16_t timeout = 3000);
 
     int      read();
     // lastRead is in MilliSeconds since start sketch
@@ -65,7 +68,7 @@ public:
     // set readDelay to 0 will reset to datasheet values
     uint16_t getReadDelay()                { return _readDelay; };
     void     setReadDelay(uint16_t rd = 0) { _readDelay = rd; };
-  
+
     int      getModel();
     int      getVersion();
     uint32_t getDeviceID();
@@ -87,7 +90,7 @@ public:
     void     setTempOffset(float offset)   { _tempOffset = offset; };
     float    getHumOffset()                { return _humOffset; };
     float    getTempOffset()               { return _tempOffset; };
-  
+
     bool     wakeUp() { return isConnected(); };
 
 private:
@@ -98,7 +101,7 @@ private:
     float    _tempOffset    = 0.0;
     uint32_t _lastRead      = 0;
     uint16_t _readDelay     = 0;
-  
+
     int      _readRegister(uint8_t reg, uint8_t cnt);
     int      _writeRegister(uint8_t reg, uint8_t cnt, int16_t value);
     int      _getData(uint8_t length);

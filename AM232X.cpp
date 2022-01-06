@@ -271,9 +271,9 @@ int AM232X::_getData(uint8_t length)
   }
 
   // ANALYZE ERRORS
-  // will not detect if we requested 1 byte as that will
-  // return 5 bytes as requested. E.g. getStatus()
-  // design a fix if it becomes a problem.
+  //   will not detect if we requested 1 byte as that will
+  //   return 5 bytes as requested. E.g. getStatus()
+  //   design a fix if it becomes a problem.
   if (bytes != length)
   {
     switch (bits[3])
@@ -321,4 +321,6 @@ uint16_t AM232X::_crc16(uint8_t *ptr, uint8_t len)
   return crc;
 }
 
+
 // -- END OF FILE --
+

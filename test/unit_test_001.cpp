@@ -70,15 +70,15 @@ unittest(test_hum_temp)
 {
   AM232X AM;
 
-  assertEqual(0, AM.getHumidity());
-  assertEqual(0, AM.getHumOffset());
+  assertEqualFloat(0, AM.getHumidity(), 0.001);
+  assertEqualFloat(0, AM.getHumOffset(), 0.001);
   AM.setHumOffset(1.5);
-  assertEqual(1.5, AM.getHumOffset());
+  assertEqualFloat(1.5, AM.getHumOffset(), 0.001);
   
-  assertEqual(0, AM.getTemperature());
-  assertEqual(0, AM.getTempOffset());
+  assertEqualFloat(0, AM.getTemperature(), 0.001);
+  assertEqualFloat(0, AM.getTempOffset(), 0.001);
   AM.setTempOffset(-1.5);
-  assertEqual(-1.5, AM.getTempOffset());
+  assertEqualFloat(-1.5, AM.getTempOffset(), 0.001);
 }
 
 

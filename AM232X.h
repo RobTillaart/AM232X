@@ -97,10 +97,10 @@ private:
     uint8_t  bits[8];
     float    _humidity;
     float    _temperature;
-    float    _humOffset     = 0.0;
-    float    _tempOffset    = 0.0;
-    uint32_t _lastRead      = 0;
-    uint16_t _readDelay     = 0;
+    float    _humOffset;
+    float    _tempOffset;
+    uint32_t _lastRead;
+    uint16_t _readDelay;
 
     int      _readRegister(uint8_t reg, uint8_t cnt);
     int      _writeRegister(uint8_t reg, uint8_t cnt, int16_t value);

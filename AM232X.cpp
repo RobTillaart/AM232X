@@ -39,7 +39,14 @@ const uint8_t AM232X_ADDRESS = 0x5C;
 
 AM232X::AM232X(TwoWire *wire)
 {
-  _wire = wire;
+  _wire        = wire;
+  //  reset() or begin() ?
+  _humidity    = 0.0;
+  _temperature = 0.0;
+  _humOffset   = 0.0;
+  _tempOffset  = 0.0;
+  _lastRead    = 0;
+  _readDelay   = 2000;
 }
 
 

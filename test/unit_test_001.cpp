@@ -164,9 +164,9 @@ unittest(test_AM232X_surpress_error)
   assertTrue(AM.isConnected());
 
   assertFalse(AM.getSuppressError());
-  AM.setSuppressError(true));
+  AM.setSuppressError(true);
   assertTrue(AM.getSuppressError());
-  AM.setSuppressError(false));
+  AM.setSuppressError(false);
   assertFalse(AM.getSuppressError());
 }
 

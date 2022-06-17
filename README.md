@@ -67,7 +67,7 @@ Since 0.4.2 the library provides specific classes for the AM2320, AM2321 and AM2
 Returns true if device address 0x5C is connected.
 - **bool begin()** initializer for non ESP32 e.g. AVR.
 Returns true if device address 0x5C is connected.
-- **bool isConnected(uint16_t timeout = 3000)** returns true if device address 0x5C is found on I2C bus. 
+- **bool isConnected(uint16_t timeout = 3000)** returns true if the device address 0x5C is found on I2C bus.
 As the device can be in sleep modus it will retry for the defined timeout (in micros) with a minimum of 1 try. 
 minimum = 800 us and maximum = 3000 us according to datasheet.
 
@@ -177,7 +177,8 @@ the sensor takes to boot and to be ready for the first measurement.
 pin of the sensors. This way one can enable / disable communication 
 per sensor. This will still need an IO pin per sensor but does not 
 have the "boot time" constraint mentioned above.
-you may use a **PCF8574** to control these AND ports.
+you may use a **PCF8574** to control the AND gates.
+https://github.com/RobTillaart/PCF8574
 3. Use a **TCA9548A** I2C Multiplexer, or similar. https://github.com/RobTillaart/TCA9548
 
 Which method fit your application depends on your requirements and constraints.
@@ -188,6 +189,9 @@ Which method fit your application depends on your requirements and constraints.
 - update documentation
 - test more (other platforms)
 - keep in sync with AM2315 class
+  - merge in a far future.
+- update unit test
+- add examples
 - I2C performance measurements
   - clock speed > 170 - see AM2315
 

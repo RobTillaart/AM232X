@@ -27,6 +27,10 @@
 //                      refactor examples, update readme.md
 //   0.4.1  2022-01-28  fix ERROR_CONNECT, minor edits
 //                      fix #19 support Wire1 on ESP
+//   0.4.2  2022-06-17  add derived classes
+//                      added some unit tests
+//                      minor edits.
+
 
 
 #include "AM232X.h"
@@ -76,6 +80,8 @@ bool AM232X::begin()
 
 bool AM232X::isConnected(uint16_t timeout)
 {
+  // if (timeout <  800) timeout =  800;
+  // if (timeout > 3000) timeout = 3000;
   uint32_t start = micros();
   while (micros() - start < timeout)
   {
@@ -90,7 +96,6 @@ bool AM232X::isConnected(uint16_t timeout)
 
 int AM232X::read()
 {
-  if (_readDelay == 0) _readDelay = 2000;  // reset
   if (millis() - _lastRead < _readDelay)
   {
     return AM232X_READ_TOO_FAST;
@@ -122,6 +127,16 @@ float AM232X::getTemperature()
 {
   if (_tempOffset == 0.0) return _temperature;
   return _temperature + _tempOffset;
+};
+
+
+void AM232X::setReadDelay(uint16_t rd)
+{
+  _readDelay = rd;
+  if (_readDelay == 0)
+  {
+    _readDelay = 2000;  // reset
+  }
 };
 
 
@@ -335,6 +350,27 @@ uint16_t AM232X::_crc16(uint8_t *ptr, uint8_t len)
   }
   return crc;
 }
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AM232X derived classes
+//
+AM2320::AM2320(TwoWire *wire) : AM232X(wire)
+{
+}
+
+
+AM2321::AM2321(TwoWire *wire) : AM232X(wire)
+{
+}
+
+
+AM2322::AM2322(TwoWire *wire) : AM232X(wire)
+{
+}
+
 
 
 // -- END OF FILE --

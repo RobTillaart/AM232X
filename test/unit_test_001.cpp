@@ -54,7 +54,7 @@ unittest(test_constants)
 }
 
 
-unittest(test_demo)
+unittest(test_AM232X_constructor)
 {
   AM232X AM;
   Wire.begin();
@@ -62,13 +62,83 @@ unittest(test_demo)
   assertTrue(AM.begin());
   assertTrue(AM.isConnected());   // TODO - GODMODE
 
+  assertEqual(0, AM.lastRead());
   // assertEqual(-10, AM.read());
 }
 
 
-unittest(test_hum_temp)
+unittest(test_AM232X_read_delay)
 {
   AM232X AM;
+  Wire.begin();
+
+  assertTrue(AM.begin());
+  assertTrue(AM.isConnected());   // TODO - GODMODE
+
+  assertEqual(0, AM.lastRead());
+  // assertEqual(-10, AM.read());
+
+  // default 2000
+  assertEqual(2000, AM.getReadDelay());
+  AM.setReadDelay(3000);
+  assertEqual(3000, AM.getReadDelay());
+  // set readDelay to 0 will reset to datasheet value
+  AM.setReadDelay(0);
+  assertEqual(2000, AM.getReadDelay());
+}
+
+
+unittest(test_AM232X_hum_temp)
+{
+  AM232X AM;
+
+  assertEqualFloat(0, AM.getHumidity(), 0.001);
+  assertEqualFloat(0, AM.getHumOffset(), 0.001);
+  AM.setHumOffset(1.5);
+  assertEqualFloat(1.5, AM.getHumOffset(), 0.001);
+  
+  assertEqualFloat(0, AM.getTemperature(), 0.001);
+  assertEqualFloat(0, AM.getTempOffset(), 0.001);
+  AM.setTempOffset(-1.5);
+  assertEqualFloat(-1.5, AM.getTempOffset(), 0.001);
+}
+
+
+unittest(test_hum_AM2320_temp)
+{
+  AM2320 AM;
+
+  assertEqualFloat(0, AM.getHumidity(), 0.001);
+  assertEqualFloat(0, AM.getHumOffset(), 0.001);
+  AM.setHumOffset(1.5);
+  assertEqualFloat(1.5, AM.getHumOffset(), 0.001);
+  
+  assertEqualFloat(0, AM.getTemperature(), 0.001);
+  assertEqualFloat(0, AM.getTempOffset(), 0.001);
+  AM.setTempOffset(-1.5);
+  assertEqualFloat(-1.5, AM.getTempOffset(), 0.001);
+}
+
+
+unittest(test_hum_AM2321_temp)
+{
+  AM2321 AM;
+
+  assertEqualFloat(0, AM.getHumidity(), 0.001);
+  assertEqualFloat(0, AM.getHumOffset(), 0.001);
+  AM.setHumOffset(1.5);
+  assertEqualFloat(1.5, AM.getHumOffset(), 0.001);
+  
+  assertEqualFloat(0, AM.getTemperature(), 0.001);
+  assertEqualFloat(0, AM.getTempOffset(), 0.001);
+  AM.setTempOffset(-1.5);
+  assertEqualFloat(-1.5, AM.getTempOffset(), 0.001);
+}
+
+
+unittest(test_AM2322_hum_temp)
+{
+  AM2322 AM;
 
   assertEqualFloat(0, AM.getHumidity(), 0.001);
   assertEqualFloat(0, AM.getHumOffset(), 0.001);

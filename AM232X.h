@@ -3,7 +3,7 @@
 //    FILE: AM232X.h
 //  AUTHOR: Rob Tillaart
 // PURPOSE: AM232X Temperature and Humidity sensor library for Arduino
-// VERSION: 0.4.1
+// VERSION: 0.4.2
 //     URL: https://github.com/RobTillaart/AM232X
 //
 //  AM232X PIN layout             AM2315 COLOR
@@ -23,7 +23,7 @@
 #include "Wire.h"
 
 
-#define AM232X_LIB_VERSION              (F("0.4.1"))
+#define AM232X_LIB_VERSION              (F("0.4.2"))
 
 
 #define AM232X_OK                        0
@@ -58,16 +58,18 @@ public:
     bool     begin(uint8_t sda, uint8_t scl);
 #endif
     bool     begin();
-    // datasheet 8.2 - wake up is min 800 us max 3000 us
+    //  datasheet 8.2 - wake up is min 800 us max 3000 us
     bool     isConnected(uint16_t timeout = 3000);
 
     int      read();
-    // lastRead is in MilliSeconds since start sketch
-    uint32_t lastRead()                    { return _lastRead; };
-    // set readDelay to 0 will reset to datasheet values
-    uint16_t getReadDelay()                { return _readDelay; };
-    void     setReadDelay(uint16_t rd = 0) { _readDelay = rd; };
+    //  lastRead is in MilliSeconds since start sketch
+    uint32_t lastRead()     { return _lastRead; };
 
+    //  set readDelay to 0 will reset to datasheet values
+    uint16_t getReadDelay() { return _readDelay; };
+    void     setReadDelay(uint16_t rd = 0);
+
+    //  negative return values are errors
     int      getModel();
     int      getVersion();
     uint32_t getDeviceID();
@@ -92,7 +94,7 @@ public:
 
     bool     wakeUp() { return isConnected(); };
 
-private:
+protected:
     uint8_t  _bits[8];
     float    _humidity;
     float    _temperature;
@@ -109,6 +111,34 @@ private:
 
     TwoWire* _wire;
 };
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AM232X derived classes
+//
+class AM2320 : public AM232X
+{
+public:
+  AM2320(TwoWire *wire = &Wire);
+};
+
+
+class AM2321 : public AM232X
+{
+public:
+  AM2321(TwoWire *wire = &Wire);
+};
+
+
+class AM2322 : public AM232X
+{
+public:
+  AM2322(TwoWire *wire = &Wire);
+};
+
+
+
 
 
 // -- END OF FILE --

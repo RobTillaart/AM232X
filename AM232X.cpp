@@ -29,6 +29,7 @@
 //                      fix #19 support Wire1 on ESP
 //   0.4.2  2022-06-17  add derived classes
 //                      added some unit tests
+//                      fix _lastRead bug
 //                      minor edits.
 
 
@@ -46,22 +47,26 @@ const uint8_t AM232X_ADDRESS = 0x5C;
 
 AM232X::AM232X(TwoWire *wire)
 {
-  _wire        = wire;
+  _wire          = wire;
   //  reset() or begin() ?
-  _humidity    = 0.0;
-  _temperature = 0.0;
-  _humOffset   = 0.0;
-  _tempOffset  = 0.0;
-  _lastRead    = 0;
-  _readDelay   = 2000;
+  _humidity      = 0.0;
+  _temperature   = 0.0;
+  _humOffset     = 0.0;
+  _tempOffset    = 0.0;
+  _lastRead      = 0;
+  _readDelay     = 2000;
 }
 
 
 #if defined (ESP8266) || defined(ESP32)
-bool AM232X::begin(uint8_t sda, uint8_t scl)
+bool AM232X::begin(const uint8_t dataPin, const uint8_t clockPin)
 {
-  // _wire = &Wire;
-  _wire->begin(sda, scl);
+  if ((dataPin < 255) && (clockPin < 255))
+  {
+    _wire->begin(dataPin, clockPin);
+  } else {
+    _wire->begin();
+  }
   if (! isConnected()) return false;
   this->read();
   return true;
@@ -80,8 +85,6 @@ bool AM232X::begin()
 
 bool AM232X::isConnected(uint16_t timeout)
 {
-  // if (timeout <  800) timeout =  800;
-  // if (timeout > 3000) timeout = 3000;
   uint32_t start = micros();
   while (micros() - start < timeout)
   {
@@ -100,6 +103,7 @@ int AM232X::read()
   {
     return AM232X_READ_TOO_FAST;
   }
+  _lastRead = millis();
   // READ HUMIDITY AND TEMPERATURE REGISTERS
   int rv = _readRegister(0x00, 4);
   if (rv < 0) return rv;
@@ -118,16 +122,18 @@ int AM232X::read()
 
 float AM232X::getHumidity()
 {
-  if (_humOffset == 0.0) return _humidity;
-  return _humidity + _humOffset;
-};
+  float _hum = _humidity;
+  if (_humOffset != 0.0) _hum += _humOffset;
+  return _hum;
+}
 
 
 float AM232X::getTemperature()
 {
-  if (_tempOffset == 0.0) return _temperature;
-  return _temperature + _tempOffset;
-};
+  float _tem = _temperature;
+  if (_tempOffset != 0.0) _tem += _tempOffset;
+  return _tem;
+}
 
 
 void AM232X::setReadDelay(uint16_t rd)
@@ -226,7 +232,7 @@ int AM232X::setUserRegisterB(int value)
 
 ////////////////////////////////////////////////////////////////////
 //
-// PRIVATE
+// PROTECTED
 //
 int AM232X::_readRegister(uint8_t reg, uint8_t count)
 {
@@ -331,11 +337,10 @@ int AM232X::_getData(uint8_t length)
 uint16_t AM232X::_crc16(uint8_t *ptr, uint8_t len)
 {
   uint16_t crc = 0xFFFF;
-
-  while (len--)
+  while(len--)
   {
     crc ^= *ptr++;
-    for (int i = 0; i < 8; i++)
+    for (uint8_t i = 0; i < 8; i++)
     {
       if (crc & 0x01)
       {

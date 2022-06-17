@@ -52,64 +52,64 @@
 class AM232X
 {
 public:
-    explicit AM232X(TwoWire *wire = &Wire);
+  explicit AM232X(TwoWire *wire = &Wire);
 
-#if defined (ESP8266) || defined(ESP32)
-    bool     begin(uint8_t sda, uint8_t scl);
+#if defined(ESP8266) || defined(ESP32)
+  bool     begin(const uint8_t dataPin, const uint8_t clockPin);
 #endif
-    bool     begin();
-    //  datasheet 8.2 - wake up is min 800 us max 3000 us
-    bool     isConnected(uint16_t timeout = 3000);
+  bool     begin();
+  //  datasheet 8.2 - wake up is min 800 us max 3000 us
+  bool     isConnected(uint16_t timeout = 3000);
 
-    int      read();
-    //  lastRead is in MilliSeconds since start sketch
-    uint32_t lastRead()     { return _lastRead; };
+  int      read();
+  //  lastRead is in MilliSeconds since start sketch
+  uint32_t lastRead()     { return _lastRead; };
 
-    //  set readDelay to 0 will reset to datasheet values
-    uint16_t getReadDelay() { return _readDelay; };
-    void     setReadDelay(uint16_t rd = 0);
+  //  set readDelay to 0 will reset to datasheet values
+  uint16_t getReadDelay() { return _readDelay; };
+  void     setReadDelay(uint16_t rd = 0);
 
-    //  negative return values are errors
-    int      getModel();
-    int      getVersion();
-    uint32_t getDeviceID();
+  //  negative return values are errors
+  int      getModel();
+  int      getVersion();
+  uint32_t getDeviceID();
 
-    int      getStatus();
-    int      getUserRegisterA();
-    int      getUserRegisterB();
+  int      getStatus();
+  int      getUserRegisterA();
+  int      getUserRegisterB();
 
-    int      setStatus(uint8_t value);
-    int      setUserRegisterA(int value);
-    int      setUserRegisterB(int value);
+  int      setStatus(uint8_t value);
+  int      setUserRegisterA(int value);
+  int      setUserRegisterB(int value);
 
-    float    getHumidity();
-    float    getTemperature();
+  float    getHumidity();
+  float    getTemperature();
 
-    // adding offsets works well in normal range
-    // might introduce under- or overflow at the ends of the sensor range
-    void     setHumOffset(float offset)    { _humOffset = offset; };
-    void     setTempOffset(float offset)   { _tempOffset = offset; };
-    float    getHumOffset()                { return _humOffset; };
-    float    getTempOffset()               { return _tempOffset; };
+  // adding offsets works well in normal range
+  // might introduce under- or overflow at the ends of the sensor range
+  void     setHumOffset(float offset = 0)  { _humOffset = offset; };
+  void     setTempOffset(float offset = 0) { _tempOffset = offset; };
+  float    getHumOffset()             { return _humOffset; };
+  float    getTempOffset()            { return _tempOffset; };
 
-    bool     wakeUp() { return isConnected(); };
+  bool     wakeUp() { return isConnected(); };
 
 protected:
-    uint8_t  _bits[8];
-    float    _humidity;
-    float    _temperature;
-    float    _humOffset;
-    float    _tempOffset;
-    uint32_t _lastRead;
-    uint16_t _readDelay;
+  uint8_t  _bits[8];    // buffer to hold raw data
+  float    _humidity      = 0.0;
+  float    _temperature   = 0.0;
+  float    _humOffset     = 0.0;
+  float    _tempOffset    = 0.0;
+  uint32_t _lastRead      = 0;
+  uint16_t _readDelay     = 2000;
 
-    int      _readRegister(uint8_t reg, uint8_t cnt);
-    int      _writeRegister(uint8_t reg, uint8_t cnt, int16_t value);
-    int      _getData(uint8_t length);
+  int      _readRegister(uint8_t reg, uint8_t cnt);
+  int      _writeRegister(uint8_t reg, uint8_t cnt, int16_t value);
+  int      _getData(uint8_t length);
 
-    uint16_t _crc16(uint8_t *ptr, uint8_t len);
+  uint16_t _crc16(uint8_t *ptr, uint8_t len);
 
-    TwoWire* _wire;
+  TwoWire* _wire;
 };
 
 

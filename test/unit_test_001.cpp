@@ -8,6 +8,7 @@
 //
 
 // supported assertions
+// https://github.com/Arduino-CI/arduino_ci/blob/master/cpp/unittest/Assertion.h#L33-L42
 // ----------------------------
 // assertEqual(expected, actual)
 // assertNotEqual(expected, actual)
@@ -18,6 +19,7 @@
 // assertTrue(actual)
 // assertFalse(actual)
 // assertNull(actual)
+// assertNotNull(actual)
 
 
 #include <ArduinoUnitTests.h>

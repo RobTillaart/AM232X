@@ -71,10 +71,12 @@ minimum = 800 us and maximum = 3000 us according to datasheet.
 
 ### Offset
 
-- **void setHumOffset(float offset)** set an offset to calibrate (1st order) the sensor.
-- **float getHumOffset()** return current offset, default 0.
-- **void setTempOffset(float offset)** set an offset to calibrate (1st order) the sensor
-- **float getTempOffset()** return current offset, default 0.
+- **void setHumOffset(float offset = 0)** set an offset for humidity to calibrate (1st order) the sensor.
+Default offset = 0, so no parameter will reset the offset.
+- **float getHumOffset()** return current humidity offset, default 0.
+- **void setTempOffset(float offset = 0)** set an offset for temperature to calibrate (1st order) the sensor.
+Default offset = 0, so no parameter will reset the offset.
+- **float getTempOffset()** return current temperature offset, default 0.
 
 
 ### Control
@@ -87,6 +89,7 @@ Set readDelay to 0 will reset it to 2000 ms effictive the next **read()**.
 - **uint16_t getReadDelay()** returns the above setting. 
 Note that a value of zero (reset) will return 0 before the call and 2000 after the call to **read()**.
 - **bool wakeUp()** function that will try for 3 milliseconds to wake up the sensor.
+This can be done before an actual read to minimize the **read()** call.
 
 
 ### Metadata
